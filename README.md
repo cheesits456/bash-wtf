@@ -9,6 +9,16 @@ Run the following commands to install the `wtf` command on your machine:
 2. `cd ./bash-wtf`
 3. `sudo ./install.sh`
 
+After the installation completes, you can safely delete the cloned repo if you wish:
+
+4. `cd .. && rm -rf ./bash-wtf`
+
+### Removal
+
+If you wish to remove the `wtf` command from your system, simply execute the following in a terminal:
+
+- `sudo rm /usr/local/bin/wtf`
+
 ## Usage
 
 `wtf [options]`
