@@ -11,13 +11,12 @@ Run the following commands to install the `wtf` command on your machine:
 
 ## Usage
 
-    wtf - A command for when you have no idea wtf just happened
-    
-    Usage: wtf [options]
-    
-    Options:
-        -h, --help           display help message and exit
-        -V, --version        display version information and exit
+`wtf [options]`
+
+#### Options:
+
+- `-h`, `--help`: Display help message and exit
+- `-V`, `--version`: Display version information and exit
 
 ## Examples
 
