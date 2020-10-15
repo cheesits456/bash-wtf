@@ -1,48 +1,22 @@
 #!/usr/bin/env bash
-VER="v1.1.0"
+VER="v1.1.1"
 
-# errcho function for echoing to stderr
-errcho() {
-	>&2 echo $@
-}
+errcho() { >&2 echo $@; }
 
-# Parse command-line options, set corresponding variables indicating selected options
 while [[ $# -gt 0 ]]; do
 	option="$1"
 	case $option in
-		-e|--edit)
-			EDIT=1
-			shift
-		;;
-		-h|--help)
-			HELP=1
-			shift
-		;;
-		-i|--install)
-			INSTALL=1
-			shift
-		;;
-		-r|--reset)
-			RESET=1
-			shift
-		;;
-		-u|--uninstall)
-			UNINSTALL=1
-			shift
-		;;
-		-V|--version)
-			VERSION=1
-			shift
-		;;
-		*)
-			shift
-		;;
+		-e|--edit)      EDIT=1;      shift;;
+		-h|--help)      HELP=1;      shift;;
+		-i|--install)   INSTALL=1;   shift;;
+		-r|--reset)     RESET=1;     shift;;
+		-u|--uninstall) UNINSTALL=1; shift;;
+		-V|--version)   VERSION=1;   shift;;
+		*) shift;;
 	esac
 done
 
-
-# wtf --help
-if [ "$HELP" = "1" ]; then
+[ "$HELP" = "1" ] && {
 	echo "wtf - a command for when you have no idea wtf just happened"
 	echo
 	echo "Usage: wtf [options]"
@@ -65,57 +39,43 @@ if [ "$HELP" = "1" ]; then
 	echo "    possible response  to be chosen  at random.  Escape sequences like  '\n' for"
 	echo "    line breaks or '\e' for color escape codes are supported."
 	exit 0
-fi
+}
 
-
-# wtf --install
-if [ "$INSTALL" = "1" ]; then
-	if [ $(whoami) != "root" ]; then
+[ "$INSTALL" = "1" ] && {
+	[ $(whoami) != "root" ] && {
 		errcho "The '--install' option can only be run by the root user"
 		exit 1
-	else
-		if [ -x "$PWD/wtf.sh" ]; then
+	} || {
+		[ -x "$PWD/wtf.sh" ] && {
 			cp "$PWD/wtf.sh" "/usr/local/bin/wtf"
 			echo "Successfully installed!"
 			echo "You can now use the command simply by typing \"wtf\""
 			exit 0
-		else
-			errcho "A file named 'wtf.sh' must exist in your current directory in order to use the"
-			errcho "'--install' option"
+		} || {
+			errcho -e "A file named 'wtf.sh' must exist in your current directory in order to use the\\n'--install' option"
 			exit 1
-		fi
-	fi
-fi
+		}
+	}
+}
 
-
-# wtf --uninstall
-if [ "$UNINSTALL" = "1" ]; then
-	if [ $(whoami) != "root" ]; then
+[ "$UNINSTALL" = "1" ] && {
+	[ $(whoami) != "root" ] && {
 		errcho "The '--uninstall' option can only be run by the root user"
 		exit 1
-	else
-		if [ -x "$(which wtf)" ]; then
+	} || {
+		[ -x "$(which wtf)" ] && {
 			rm "$(which wtf)"
 			echo "Successfully uninstalled!"
 			exit 0
-		else
+		} || {
 			errcho "wtf is not installed to any directory in your current \$PATH"
 			exit 1
-		fi
-	fi
-fi
+		}
+	}
+}
 
+[ "$VERSION" = "1" ] &&	echo $VER && exit 0
 
-# wtf --version
-if [ "$VERSION" = "1" ]; then
-	echo $VER
-	exit 0
-fi
-
-
-# wtf *
-
-# Set default responses
 read -rd '' config <<'EOF'
 I don't fucking know, \e[3mLMAO
 \e[35mNo fuckin' clue
@@ -124,31 +84,23 @@ Beats me \e[36m¯\_(ツ)_/¯
 That was so bad, even \e[1;3mI\e[21;23m don't know what happened
 EOF
 
-# Load config file if it exists, else write $config to a new file
-if [ ! -f "$HOME/.config/wtf/wtf.conf" ] || [ "$RESET" = "1" ]; then
+[ ! -f "$HOME/.config/wtf/wtf.conf" ] || [ "$RESET" = "1" ] && {
 	mkdir -p $HOME/.config/wtf
 	printf '%s\n' "$config" > $HOME/.config/wtf/wtf.conf
-	# If --reset option was set, end execution here
-	if [ "$RESET" = "1" ]; then
+	[ "$RESET" = "1" ] && {
 		echo "Config file reset to default!"
 		exit 0
-	fi
-else
-	config=$(cat $HOME/.config/wtf/wtf.conf)
-fi
+	}
+} || config=$(cat $HOME/.config/wtf/wtf.conf)
 
-if [ "$EDIT" = "1" ]; then
+[ "$EDIT" = "1" ] && {
 	echo "Opening configuration file for editing . . ."
 	nano "$HOME/.config/wtf/wtf.conf"
 	echo "Done!"
 	exit 0
-fi
+}
 
-# Split config string into an array using line breaks as the delimiter
 IFS=$'\n' lines=($config)
-# Select a random index from the array
 index=$(($RANDOM % ${#lines[@]}))
-# Print the array item at the selected index, '-e' to support backslash escapes
 echo -e "${lines[$index]}\e[0m"
-
 exit 0
