@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VER="v1.1.1"
+VER="v1.1.2"
 
 errcho() { >&2 echo $@; }
 
@@ -9,6 +9,7 @@ while [[ $# -gt 0 ]]; do
 		-e|--edit)      EDIT=1;      shift;;
 		-h|--help)      HELP=1;      shift;;
 		-i|--install)   INSTALL=1;   shift;;
+		-p|--print)     PRINT=1;     shift;;
 		-r|--reset)     RESET=1;     shift;;
 		-u|--uninstall) UNINSTALL=1; shift;;
 		-V|--version)   VERSION=1;   shift;;
@@ -25,6 +26,7 @@ done
 	echo "    -e, --edit           open your user-specific config in nano"
 	echo "    -h, --help           display help message and exit"
 	echo "    -i, --install        install the 'wtf' command globally"
+	echo "    -p, --print          print out all responses from your current config file"
 	echo "    -r, --reset          reset your user-specific config to default"
 	echo "    -u, --uninstall      remove the globally installed command"
 	echo "    -V, --version        display version information and exit"
@@ -97,6 +99,11 @@ EOF
 	echo "Opening configuration file for editing . . ."
 	nano "$HOME/.config/wtf/wtf.conf"
 	echo "Done!"
+	exit 0
+}
+
+[ "$PRINT" = "1" ] && {
+	echo -e "$(cat $HOME/.config/wtf/wtf.conf)"
 	exit 0
 }
 
