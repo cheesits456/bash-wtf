@@ -79,11 +79,14 @@ done
 [ "$VERSION" = "1" ] &&	echo $VER && exit 0
 
 read -rd '' config <<'EOF'
-I don't fucking know, \e[3mLMAO
-\e[35mNo fuckin' clue
-\e[1;31mNo fuckin' idea
-Beats me \e[36m¯\_(ツ)_/¯
-That was so bad, even \e[1;3mI\e[21;23m don't know what happened
+I don't fucking know, \e[3mLMAO\e[0m
+\e[35mNo fuckin' clue\e[0m
+\e[1;31mNo fuckin' idea\e[0m
+Beats me \e[36m¯\_(ツ)_/¯\e[0m
+That was so bad, even \e[1;3mI\e[21;23m don't know what happened\e[0m
+\e[33mTry again, you did something dumb \e[2;37m>\e[0m:\e[31m(\e[0m
+Read the fuckin' error message \e[3mbefore\e[23m asking people for help, smh
+\e[32mSomeone asked the same thing on StackOverflow \e[1m8 years ago\e[0m\n\e[33m  . . . unfortunately, they're still waiting for an answer \e[0m:\e[36m'\e[31m(\e[0m
 EOF
 
 [ ! -f "$HOME/.config/wtf/wtf.conf" ] || [ "$RESET" = "1" ] && {
