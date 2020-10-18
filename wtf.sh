@@ -112,5 +112,11 @@ EOF
 
 IFS=$'\n' lines=($config)
 index=$(($RANDOM % ${#lines[@]}))
-echo -e "${lines[$index]}\e[0m"
+
+test -t 1 && test -n "$(tput colors)" && test "$(tput colors)" -ge 8 && {
+ 	echo -e "${lines[$index]}\e[0m"
+} || {
+ 	echo -e "${lines[$index]}" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
+}
+
 exit 0
