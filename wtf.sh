@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-VER="v1.2.0"
+VER="v1.2.1"
 
 errcho() { >&2 echo $@; }
+
+[ -z "$HOME" ] && HOME="~"
 
 while [[ $# -gt 0 ]]; do
 	option="$1"
