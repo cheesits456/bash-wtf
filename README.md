@@ -42,3 +42,4 @@ If you wish to remove the `wtf` command from your system, simply execute the fol
 <!-- Links -->
 [example-help]: https://github.com/cheesits456/bash-wtf/raw/readme-images/1.1.0_example-help.png
 [example-cmd]: https://github.com/cheesits456/bash-wtf/raw/readme-images/1.1.0_example-cmd.png
+
