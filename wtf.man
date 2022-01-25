@@ -1,0 +1,88 @@
+.TH WTF 1 2022-01-24
+
+
+.SH NAME
+wtf \- a command for when you have no idea wtf just happened
+
+
+.SH SYNOPSIS
+.B wtf
+.BR \-e \||\| \-\-edit
+.br
+.B wtf
+.BR \-h \||\| \-\-help
+.br
+.B wtf
+.BR \-i \||\| \-\-install
+.br
+.B wtf
+.BR \-p \||\| \-\-print
+.br
+.B wtf
+.BR \-r \||\| \-\-reset
+.br
+.B wtf
+.BR \-u \||\| \-\-uninstall
+.br
+.B wtf
+.BR \-V \||\| \-\-version
+
+
+.SH DESCRIPTION
+.B wtf
+is a command that outputs a random string from a
+.I config
+file when executed.
+
+
+.SH OPTIONS
+.SS Installation
+.TP
+.BR \-i ", " \-\-install
+Install the
+.B wtf
+command globally
+.TP
+.BR \-u ", " \-\-uninstall
+Remove the globally installed command
+
+.SS Modification
+.TP
+.BR \-e ", " \-\-edit
+Open your user-specific
+.I config
+in nano
+.TP
+.BR \-p ", " \-\-print
+Print out all responses from your current
+.I config
+file
+.TP
+.BR \-r ", " \-\-reset
+Reset your user-specific
+.I config
+to default
+
+.SS About
+.TP
+.BR \-h ", " \-\-help
+Display
+.I help
+message and exit
+.TP
+.BR \-V ", " \-\-version
+Display version information and exit
+
+
+.SH CONFIGURATION
+.SS File
+Responses are read from
+.IR ~/.config/wtf/wtf.conf "."
+If that file is missing when the command is run, it will be created and filled with the default responses. It can then be edited to include whatever responses you want.
+
+.SS Format
+Responses are saved as plaintext \- each line of the file represents one possible response to be chosen at random. Escape sequences like
+.I \\\\n
+for line breaks or
+.I \\\\e
+for color escape codes are supported.
