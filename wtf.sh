@@ -50,13 +50,16 @@ done
 		errcho "The '--install' option can only be run by the root user"
 		exit 1
 	} || {
-		[ -x "$PWD/wtf.sh" ] && {
+		[ -x "$PWD/wtf.sh" ] && [ -r "$PWD/wtf.man" ] && {
+			echo "Installing program . . ."
 			cp "$PWD/wtf.sh" "/usr/local/bin/wtf"
+			echo "Installing man page . . ."
+			cp "$PWD/wtf.man" "/usr/share/man/man1/wtf.1"
 			echo "Successfully installed!"
-			echo "You can now use the command simply by typing \"wtf\""
+			echo "You can now use \"wtf\" to run the command and \"man wtf\" to view the man page"
 			exit 0
 		} || {
-			errcho -e "A file named 'wtf.sh' must exist in your current directory in order to use the\\n'--install' option"
+			errcho -e "Files 'wtf.sh'  and 'wtf.man' must exist  in your current directory  in order to\\nuse the '--install' option"
 			exit 1
 		}
 	}
@@ -69,6 +72,7 @@ done
 	} || {
 		[ -x "$(which wtf)" ] && {
 			rm "$(which wtf)"
+			rm "/usr/share/man/man1/wtf.1"
 			echo "Successfully uninstalled!"
 			exit 0
 		} || {
