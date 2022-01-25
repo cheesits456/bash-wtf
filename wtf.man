@@ -51,7 +51,10 @@ Remove the globally installed command
 .BR \-e ", " \-\-edit
 Open your user-specific
 .I config
-in nano
+in the editor set by the
+.I $EDITOR
+environment variable. If the variable is not set it will default to
+.IR nano "."
 .TP
 .BR \-p ", " \-\-print
 Print out all responses from your current

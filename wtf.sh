@@ -25,7 +25,7 @@ done
 	echo "Usage: wtf [options]"
 	echo
 	echo "Options:"
-	echo "    -e, --edit           open your user-specific config in nano"
+	echo "    -e, --edit           open your user-specific config in your default editor"
 	echo "    -h, --help           display help message and exit"
 	echo "    -i, --install        install the 'wtf' command globally"
 	echo "    -p, --print          print out all responses from your current config file"
@@ -106,7 +106,7 @@ EOF
 
 [ "$EDIT" = "1" ] && {
 	echo "Opening configuration file for editing . . ."
-	nano "$HOME/.config/wtf/wtf.conf"
+	"${EDITOR:-nano}" "$HOME/.config/wtf/wtf.conf"
 	echo "Done!"
 	exit 0
 }
