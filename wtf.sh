@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VER="v1.2.2"
+VER="v1.3.0"
 
 errcho() { >&2 echo $@; }
 
