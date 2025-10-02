@@ -22,18 +22,18 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ "$HELP" = "1" ]; then
-	echo "wtf - a command for when you have no idea wtf just happened"
+	echo "wtf - A command for when you have no idea wtf just happened"
 	echo
 	echo "Usage: wtf [options]"
 	echo
 	echo "Options:"
-	echo "    -e, --edit           open your user-specific config in your default editor"
-	echo "    -h, --help           display help message and exit"
-	echo "    -i, --install        install the 'wtf' command globally"
-	echo "    -p, --print          print out all responses from your current config file"
-	echo "    -r, --reset          reset your user-specific config to default"
-	echo "    -u, --uninstall      remove the globally installed command"
-	echo "    -V, --version        display version information and exit"
+	echo "    -e, --edit           Open your user-specific config in your default editor"
+	echo "    -h, --help           Display help message and exit"
+	echo "    -i, --install        Install the 'wtf' command globally"
+	echo "    -p, --print          Print out all responses from your current config file"
+	echo "    -r, --reset          Reset your user-specific config to default"
+	echo "    -u, --uninstall      Remove the globally installed command"
+	echo "    -V, --version        Display version information and exit"
 	echo
 	echo "Config File:"
 	echo "        Responses  are  read  from  '~/.config/wtf/wtf.conf'. If  that  file  is"
