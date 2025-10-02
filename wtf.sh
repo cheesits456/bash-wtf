@@ -3,7 +3,9 @@ VER="v1.3.0"
 
 errcho() { >&2 echo $@; }
 
-[ -z "$HOME" ] && HOME="/home/$(whoami)"
+if [ -z "$HOME" ]; then
+	HOME="/home/$(whoami)"
+fi
 
 while [[ $# -gt 0 ]]; do
 	option="$1"
@@ -19,7 +21,7 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
-[ "$HELP" = "1" ] && {
+if [ "$HELP" = "1" ]; then
 	echo "wtf - a command for when you have no idea wtf just happened"
 	echo
 	echo "Usage: wtf [options]"
@@ -43,14 +45,14 @@ done
 	echo "    possible response  to be chosen  at random.  Escape sequences like  '\n' for"
 	echo "    line breaks or '\e' for color escape codes are supported."
 	exit 0
-}
+fi
 
-[ "$INSTALL" = "1" ] && {
-	[ $(whoami) != "root" ] && {
+if [ "$INSTALL" = "1" ]; then
+	if [ "$(whoami)" != "root" ]; then
 		errcho "The '--install' option can only be run by the root user"
 		exit 1
-	} || {
-		[ -x "$PWD/wtf.sh" ] && [ -r "$PWD/wtf.man" ] && {
+	else
+		if [ -x "$PWD/wtf.sh" ] && [ -r "$PWD/wtf.man" ]; then
 			echo "Installing program . . ."
 			cp "$PWD/wtf.sh" "/usr/local/bin/wtf"
 			echo "Installing man page . . ."
@@ -58,31 +60,34 @@ done
 			echo "Successfully installed!"
 			echo "You can now use \"wtf\" to run the command and \"man wtf\" to view the man page"
 			exit 0
-		} || {
+		else
 			errcho -e "Files 'wtf.sh'  and 'wtf.man' must exist  in your current directory  in order to\\nuse the '--install' option"
 			exit 1
-		}
-	}
-}
+		fi
+	fi
+fi
 
-[ "$UNINSTALL" = "1" ] && {
-	[ $(whoami) != "root" ] && {
+if [ "$UNINSTALL" = "1" ]; then
+	if [ "$(whoami)" != "root" ]; then
 		errcho "The '--uninstall' option can only be run by the root user"
 		exit 1
-	} || {
-		[ -x "$(which wtf)" ] && {
+	else
+		if [ -x "$(which wtf)" ]; then
 			rm "$(which wtf)"
 			rm "/usr/share/man/man1/wtf.1"
 			echo "Successfully uninstalled!"
 			exit 0
-		} || {
+		else
 			errcho "wtf is not installed to any directory in your current \$PATH"
 			exit 1
-		}
-	}
-}
+		fi
+	fi
+fi
 
-[ "$VERSION" = "1" ] &&	echo $VER && exit 0
+if [ "$VERSION" = "1" ]; then
+	echo $VER
+	exit 0
+fi
 
 read -rd '' config <<'EOF'
 I don't fucking know, \e[3mLMAO\e[0m
@@ -95,34 +100,36 @@ Read the fuckin' error message \e[3mbefore\e[23m asking people for help, smh
 \e[32mSomeone asked the same thing on StackOverflow \e[1m8 years ago\e[0m\n\e[33m  . . . unfortunately, they're still waiting for an answer \e[0m:\e[36m'\e[31m(\e[0m
 EOF
 
-[ ! -f "$HOME/.config/wtf/wtf.conf" ] || [ "$RESET" = "1" ] && {
 	mkdir -p $HOME/.config/wtf
 	printf '%s\n' "$config" > $HOME/.config/wtf/wtf.conf
-	[ "$RESET" = "1" ] && {
+if [ ! -f "$HOME/.config/wtf/wtf.conf" ] || [ "$RESET" = "1" ]; then
+	if [ "$RESET" = "1" ]; then
 		echo "Config file reset to default!"
 		exit 0
-	}
-} || config=$(cat $HOME/.config/wtf/wtf.conf)
+	fi
+else
+	config=$(cat "$HOME/.config/wtf/wtf.conf")
+fi
 
-[ "$EDIT" = "1" ] && {
+if [ "$EDIT" = "1" ]; then
 	echo "Opening configuration file for editing . . ."
 	"${EDITOR:-nano}" "$HOME/.config/wtf/wtf.conf"
 	echo "Done!"
 	exit 0
-}
+fi
 
-[ "$PRINT" = "1" ] && {
 	echo -e "$(cat $HOME/.config/wtf/wtf.conf)"
+if [ "$PRINT" = "1" ]; then
 	exit 0
-}
+fi
 
 IFS=$'\n' lines=($config)
 index=$(($RANDOM % ${#lines[@]}))
 
-test -t 1 && test -n "$(tput colors)" && test "$(tput colors)" -ge 8 && {
+if test -t 1 && test -n "$(tput colors)" && test "$(tput colors)" -ge 8; then
  	echo -e "${lines[$index]}\e[0m"
-} || {
+else
  	echo -e "${lines[$index]}" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
-}
+fi
 
 exit 0
