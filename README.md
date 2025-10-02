@@ -28,6 +28,7 @@ If you wish to remove the `wtf` command from your system, simply execute the fol
 - `-e`, `--edit`: Open your user-specific config in nano
 - `-h`, `--help`: Display help message and exit
 - `-i`, `--install`: Install the 'wtf' command globally
+- `-l`, `--list`: List all configured responses
 - `-r`, `--reset`: Reset your user-specific config to default
 - `-u`, `--uninstall`: Remove the globally installed command
 - `-V`, `--version`: Display version information and exit
