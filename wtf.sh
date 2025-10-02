@@ -13,7 +13,7 @@ while [[ $# -gt 0 ]]; do
 		-e|--edit)      EDIT=1;      shift;;
 		-h|--help)      HELP=1;      shift;;
 		-i|--install)   INSTALL=1;   shift;;
-		-p|--print)     PRINT=1;     shift;;
+		-l|--list)      LIST=1;      shift;;
 		-r|--reset)     RESET=1;     shift;;
 		-u|--uninstall) UNINSTALL=1; shift;;
 		-V|--version)   VERSION=1;   shift;;
@@ -118,8 +118,8 @@ if [ "$EDIT" = "1" ]; then
 	exit 0
 fi
 
-if [ "$PRINT" = "1" ]; then
 	echo -e "$(cat "$HOME/.config/wtf/wtf.conf")"
+if [ "$LIST" = "1" ]; then
 	exit 0
 fi
 
