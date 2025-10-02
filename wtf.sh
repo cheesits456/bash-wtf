@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 VER="v1.3.0"
 
-errcho() { >&2 echo $@; }
+errcho() { >&2 echo "$@"; }
 
 if [ -z "$HOME" ]; then
 	HOME="/home/$(whoami)"
@@ -100,9 +100,9 @@ Read the fuckin' error message \e[3mbefore\e[23m asking people for help, smh
 \e[32mSomeone asked the same thing on StackOverflow \e[1m8 years ago\e[0m\n\e[33m  . . . unfortunately, they're still waiting for an answer \e[0m:\e[36m'\e[31m(\e[0m
 EOF
 
-	mkdir -p $HOME/.config/wtf
-	printf '%s\n' "$config" > $HOME/.config/wtf/wtf.conf
 if [ ! -f "$HOME/.config/wtf/wtf.conf" ] || [ "$RESET" = "1" ]; then
+	mkdir -p "$HOME/.config/wtf"
+	printf '%s\n' "$config" > "$HOME/.config/wtf/wtf.conf"
 	if [ "$RESET" = "1" ]; then
 		echo "Config file reset to default!"
 		exit 0
@@ -118,8 +118,8 @@ if [ "$EDIT" = "1" ]; then
 	exit 0
 fi
 
-	echo -e "$(cat $HOME/.config/wtf/wtf.conf)"
 if [ "$PRINT" = "1" ]; then
+	echo -e "$(cat "$HOME/.config/wtf/wtf.conf")"
 	exit 0
 fi
 
