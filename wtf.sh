@@ -118,8 +118,8 @@ if [ "$EDIT" = "1" ]; then
 	exit 0
 fi
 
-	echo -e "$(cat "$HOME/.config/wtf/wtf.conf")"
 if [ "$LIST" = "1" ]; then
+	echo -e "$(pr -dT "$HOME/.config/wtf/wtf.conf")"
 	exit 0
 fi
 
